@@ -1,0 +1,28 @@
+{% extends "transactions/base.html" %}
+
+{% block title %}View Broker{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="page-title">Broker Details</h1>
+        <p class="page-subtitle">Read-only view of broker record</p>
+    </div>
+    <a href="/brokers/" class="btn btn-secondary">Back</a>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="section-title">Broker Information</div>
+
+        <div class="row g-3">
+            <div class="col-md-4"><strong>Name:</strong> {{ broker.name }}</div>
+            <div class="col-md-4"><strong>Place:</strong> {{ broker.place }}</div>
+            <div class="col-md-4"><strong>Phone:</strong> {{ broker.phone_no }}</div>
+            <div class="col-md-12"><strong>Address:</strong> {{ broker.address }}</div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

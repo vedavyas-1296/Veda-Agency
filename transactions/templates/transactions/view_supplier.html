@@ -1,0 +1,32 @@
+{% extends "transactions/base.html" %}
+
+{% block title %}View Supplier{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="page-title">Supplier Details</h1>
+        <p class="page-subtitle">Read-only view of supplier record</p>
+    </div>
+    <a href="/suppliers/" class="btn btn-secondary">Back</a>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="section-title">Supplier Information</div>
+
+        <div class="row g-3">
+            <div class="col-md-4"><strong>Name:</strong> {{ supplier.name }}</div>
+            <div class="col-md-4"><strong>Place:</strong> {{ supplier.place }}</div>
+            <div class="col-md-4"><strong>Zipcode:</strong> {{ supplier.zipcode }}</div>
+            <div class="col-md-4"><strong>Phone:</strong> {{ supplier.phone_no }}</div>
+            <div class="col-md-4"><strong>GST No:</strong> {{ supplier.gst_no }}</div>
+            <div class="col-md-4"><strong>Email:</strong> {{ supplier.email_id }}</div>
+            <div class="col-md-12"><strong>Address:</strong> {{ supplier.address }}</div>
+            <div class="col-md-12"><strong>Remarks:</strong> {{ supplier.remarks }}</div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

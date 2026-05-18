@@ -1,0 +1,74 @@
+{% extends "transactions/base.html" %}
+
+{% block title %}View Confirmation{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="page-title">Confirmation Details</h1>
+        <p class="page-subtitle">Read-only view of confirmation record</p>
+    </div>
+    <div>
+        <a href="/confirmation/{{ confirmation.id }}/print/" class="btn btn-outline-success me-2">Print</a>
+        <a href="/confirmations/" class="btn btn-secondary">Back</a>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="section-title">Confirmation Details</div>
+        <div class="row g-3">
+            <div class="col-md-4"><strong>Confirmation No:</strong> {{ confirmation.confirmation_number }}</div>
+            <div class="col-md-4"><strong>Confirmation Date:</strong> {{ confirmation.confirmation_date }}</div>
+            <div class="col-md-4"><strong>Date of Delivery:</strong> {{ confirmation.date_of_delivery }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="section-title">Party Details</div>
+        <div class="row g-3">
+            <div class="col-md-6"><strong>Supplier:</strong> {{ confirmation.supplier }}</div>
+            <div class="col-md-6"><strong>Buyer:</strong> {{ confirmation.buyer }}</div>
+            <div class="col-md-6"><strong>Supplier Place:</strong> {{ confirmation.supplier_place }}</div>
+            <div class="col-md-6"><strong>Buyer Place:</strong> {{ confirmation.buyer_place }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="section-title">Product Details</div>
+        <div class="row g-3">
+            <div class="col-md-4"><strong>Quality:</strong> {{ confirmation.quality }}</div>
+            <div class="col-md-4"><strong>Count:</strong> {{ confirmation.count }}</div>
+            <div class="col-md-4"><strong>Moisture:</strong> {{ confirmation.moisture }}</div>
+            <div class="col-md-4"><strong>Quantity:</strong> {{ confirmation.quantity }}</div>
+            <div class="col-md-4"><strong>Gunny:</strong> {{ confirmation.gunny }}</div>
+            <div class="col-md-4"><strong>Rate:</strong> ₹ {{ confirmation.rate }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="section-title">Delivery & Broker Details</div>
+        <div class="row g-3">
+            <div class="col-md-6"><strong>Packing:</strong> {{ confirmation.packing }}</div>
+            <div class="col-md-6"><strong>Delivery At:</strong> {{ confirmation.delivery_at }}</div>
+            <div class="col-md-6"><strong>Supplier Broker:</strong> {{ confirmation.supplier_broker }}</div>
+            <div class="col-md-6"><strong>Buyer Broker:</strong> {{ confirmation.buyer_broker }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="section-title">Remarks</div>
+        <p class="mb-0">{{ confirmation.remarks }}</p>
+    </div>
+</div>
+
+{% endblock %}

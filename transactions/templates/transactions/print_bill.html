@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bill</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 35px;
+            color: #000;
+        }
+
+        .print-btn {
+            margin-bottom: 20px;
+            padding: 8px 16px;
+            background: #198754;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .document {
+            border: 2px solid #000;
+            padding: 25px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #000;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            text-transform: uppercase;
+        }
+
+        .header p {
+            margin: 5px 0 0;
+            font-size: 14px;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            text-decoration: underline;
+            margin-bottom: 20px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .box {
+            width: 48%;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background: #f0f0f0;
+        }
+
+        .summary {
+            width: 45%;
+            margin-left: auto;
+        }
+
+        .remarks {
+            border: 1px solid #000;
+            padding: 10px;
+            min-height: 50px;
+        }
+
+        .signature-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px;
+        }
+
+        .signature {
+            width: 40%;
+            text-align: center;
+            border-top: 1px solid #000;
+            padding-top: 8px;
+        }
+
+        @media print {
+            .print-btn {
+                display: none;
+            }
+
+            body {
+                margin: 0;
+            }
+
+            .document {
+                border: 2px solid #000;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+
+<div class="document">
+
+    <div class="header">
+        <h1>Veda Agency</h1>
+        <p>Groundnut & Maize Canvassing Agent</p>
+        <p>#136, KG Market, Vijayawada-1 | Phone: 9989151376, 9032244466 | Email: vedaagency1296@gmail.com</p>
+    </div>
+
+    <div class="title">BILL</div>
+
+    <div class="row">
+        <div class="box">
+            <p><span class="label">Bill No:</span> {{ bill.bill_number }}</p>
+            <p><span class="label">Bill Date:</span> {{ bill.bill_date }}</p>
+        </div>
+        <div class="box">
+            <p><span class="label">Confirmation No:</span> {{ bill.confirmation.confirmation_number }}</p>
+            <p><span class="label">Confirmation Date:</span> {{ bill.confirmation.confirmation_date }}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="box">
+            <h3>Supplier Details</h3>
+            <p><span class="label">Name:</span> {{ bill.confirmation.supplier }}</p>
+            <p><span class="label">Place:</span> {{ bill.confirmation.supplier_place }}</p>
+        </div>
+
+        <div class="box">
+            <h3>Buyer Details</h3>
+            <p><span class="label">Name:</span> {{ bill.confirmation.buyer }}</p>
+            <p><span class="label">Place:</span> {{ bill.confirmation.buyer_place }}</p>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>No of Bags</th>
+                <th>Packing Kg</th>
+                <th>Quantity</th>
+                <th>Rate</th>
+                <th>Amount</th>
+                <th>GST</th>
+                <th>Lorry Advance</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ bill.number_of_bags }}</td>
+                <td>{{ bill.packing_kg }}</td>
+                <td>{{ bill.quantity }}</td>
+                <td>₹ {{ bill.confirmation.rate }}</td>
+                <td>₹ {{ bill.amount }}</td>
+                <td>₹ {{ bill.gst }}</td>
+                <td>₹ {{ bill.lorry_advance }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="box">
+            <p><span class="label">Lorry Number:</span> {{ bill.lorry_number }}</p>
+            <p><span class="label">Amount Received:</span> ₹ {{ bill.amount_received }}</p>
+        </div>
+
+        <div class="box">
+            <table class="summary">
+                <tr>
+                    <th>Bill Amount</th>
+                    <td>₹ {{ bill.bill_amount }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <h3>Others / Remarks</h3>
+    <div class="remarks">
+        {{ bill.others }}
+    </div>
+
+    <div class="signature-row">
+        <div class="signature">Prepared By</div>
+        <div class="signature">Authorized Signature</div>
+    </div>
+
+</div>
+
+
+
+</html>

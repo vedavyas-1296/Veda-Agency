@@ -1,0 +1,29 @@
+{% extends "transactions/base.html" %}
+
+{% block title %}Page Title{% endblock %}
+
+{% block content %}
+
+
+    <div class="card border-danger">
+        <div class="card-body">
+            <h1 class="text-danger">Delete Shipment</h1>
+
+            <p>Are you sure you want to delete this shipment?</p>
+
+            <ul>
+                <li><strong>Date:</strong> {{ shipment.shipment_date }}</li>
+                <li><strong>Commodity:</strong> {{ shipment.commodity_type }}</li>
+                <li><strong>Seller:</strong> {{ shipment.seller }}</li>
+                <li><strong>Buyer:</strong> {{ shipment.buyer }}</li>
+            </ul>
+
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                <a href="/" class="btn btn-secondary">Dashboard</a>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

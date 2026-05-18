@@ -1,0 +1,69 @@
+{% extends "transactions/base.html" %}
+
+{% block title %}Edit Broker{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="page-title">Edit Broker</h1>
+        <p class="page-subtitle">Update broker contact details</p>
+    </div>
+
+    <a href="/brokers/" class="btn btn-secondary">Back to Brokers</a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+
+        <form method="post">
+            {% csrf_token %}
+
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    {{ form.errors }}
+                </div>
+            {% endif %}
+
+            <div class="section-title">Broker Information</div>
+
+            <div class="row g-4">
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Broker Name</label>
+                    {{ form.name }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Phone Number</label>
+                    {{ form.phone_no }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Place</label>
+                    {{ form.place }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Zipcode</label>
+                    {{ form.zipcode }}
+                </div>
+
+                <div class="col-md-12">
+                    <label class="form-label fw-semibold">Address</label>
+                    {{ form.address }}
+                </div>
+
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 mt-4">
+                <a href="/brokers/" class="btn btn-secondary px-4">Cancel</a>
+                <button type="submit" class="btn btn-success px-4">Update Broker</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

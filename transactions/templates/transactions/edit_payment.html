@@ -1,0 +1,175 @@
+{% extends "transactions/base.html" %}
+
+{% block title %}Edit Payment{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="page-title">Edit Payment</h1>
+        <p class="page-subtitle">Update payment entry details</p>
+    </div>
+    <a href="/payments/" class="btn btn-secondary">Back to Payments</a>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            {{ form.errors }}
+        </div>
+    {% endif %}
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="section-title">Confirmation Details</div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Confirmation</label>
+                    {{ form.confirmation }}
+                </div>
+            </div>
+
+            <div class="mt-4 p-3 rounded bg-light border">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <strong>Supplier:</strong> <span id="supplier">{{ payment.confirmation.supplier }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Buyer:</strong> <span id="buyer">{{ payment.confirmation.buyer }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Supplier Place:</strong> <span id="supplier_place">{{ payment.confirmation.supplier_place }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Buyer Place:</strong> <span id="buyer_place">{{ payment.confirmation.buyer_place }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="section-title mb-0">Payment Lines</div>
+                <button type="button" class="btn btn-outline-primary btn-sm" onclick="addRow()">Add Row</button>
+            </div>
+
+            <table class="table table-bordered bg-white">
+                <thead>
+                    <tr>
+                        <th style="width: 100px;">Serial No</th>
+                        <th style="width: 180px;">Date</th>
+                        <th>Description</th>
+                        <th style="width: 180px;">Amount</th>
+                        <th style="width: 80px;">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="payment-lines">
+                    {% for line in payment.lines.all %}
+                    <tr>
+                        <td><input type="number" name="serial_no" class="form-control" value="{{ line.serial_no }}"></td>
+                        <td><input type="date" name="date" class="form-control" value="{{ line.date|date:'Y-m-d' }}"></td>
+                        <td><input type="text" name="description" class="form-control" value="{{ line.description }}"></td>
+                        <td><input type="number" name="amount" class="form-control amount-field" value="{{ line.amount }}" oninput="calculateTotal()"></td>
+                        <td>
+                            <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeRow(this)">X</button>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td><input type="number" name="serial_no" class="form-control" value="1"></td>
+                        <td><input type="date" name="date" class="form-control"></td>
+                        <td><input type="text" name="description" class="form-control"></td>
+                        <td><input type="number" name="amount" class="form-control amount-field" oninput="calculateTotal()"></td>
+                        <td>
+                            <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeRow(this)">X</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="d-flex justify-content-end">
+                <h5>Total: ₹ <span id="total-amount">0.00</span></h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2 mb-5">
+        <a href="/payments/" class="btn btn-secondary px-4">Cancel</a>
+        <button type="submit" class="btn btn-success px-4">Update Payment</button>
+    </div>
+</form>
+
+<script>
+function calculateTotal() {
+    let total = 0;
+
+    document.querySelectorAll(".amount-field").forEach(function (field) {
+        total += parseFloat(field.value) || 0;
+    });
+
+    document.getElementById("total-amount").innerText = total.toFixed(2);
+}
+
+function addRow() {
+    const tbody = document.getElementById("payment-lines");
+    const rowCount = tbody.rows.length + 1;
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+        <td><input type="number" name="serial_no" class="form-control" value="${rowCount}"></td>
+        <td><input type="date" name="date" class="form-control"></td>
+        <td><input type="text" name="description" class="form-control"></td>
+        <td><input type="number" name="amount" class="form-control amount-field" oninput="calculateTotal()"></td>
+        <td>
+            <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeRow(this)">X</button>
+        </td>
+    `;
+
+    tbody.appendChild(row);
+}
+
+function removeRow(button) {
+    const tbody = document.getElementById("payment-lines");
+
+    if (tbody.rows.length > 1) {
+        button.closest("tr").remove();
+        calculateTotal();
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    calculateTotal();
+
+    const confirmationSelect = document.getElementById("id_confirmation");
+
+    confirmationSelect.addEventListener("change", function () {
+        const id = this.value;
+
+        if (!id) {
+            document.getElementById("supplier").innerText = "-";
+            document.getElementById("buyer").innerText = "-";
+            document.getElementById("supplier_place").innerText = "-";
+            document.getElementById("buyer_place").innerText = "-";
+            return;
+        }
+
+        fetch(`/get-confirmation/${id}/`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("supplier").innerText = data.supplier;
+                document.getElementById("buyer").innerText = data.buyer;
+                document.getElementById("supplier_place").innerText = data.supplier_place;
+                document.getElementById("buyer_place").innerText = data.buyer_place;
+            });
+    });
+});
+</script>
+
+{% endblock %}

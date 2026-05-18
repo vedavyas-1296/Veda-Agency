@@ -1,0 +1,88 @@
+{% extends "transactions/base.html" %}
+
+{% block title %}Page Title{% endblock %}
+
+{% block content %}
+
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="page-title">Suppliers</h1>
+            <p class="page-subtitle">Add or Manage Suppliers</p>   
+        </div>
+        <div>
+            <a href="/" class="btn btn-secondary me-2">Dashboard</a>
+            <a href="/add-supplier/" class="btn btn-primary">Add Supplier</a>
+        </div>
+    </div>
+    {% if messages %}
+    {% for message in messages %}
+        {% if message.tags == "error" %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% else %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endif %}
+    {% endfor %}
+    {% endif %}
+<div class="card">
+    <div class="card-body"> 
+    <form method="get" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="search" class="form-control"
+               placeholder="Search supplier..."
+               value="{{ request.GET.search }}">
+        <button class="btn btn-primary">Search</button>
+        <a href="/suppliers/" class="btn btn-secondary">Clear</a>
+    </div>
+    </form>
+
+    <table class="table table-hover table-bordered bg-white shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Place</th>
+                <th>Phone</th>
+                <th>GST No</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for supplier in suppliers %}
+            <tr>
+                <td>{{ supplier.name }}</td>
+                <td>{{ supplier.place }}</td>
+                <td>{{ supplier.phone_no }}</td>
+                <td>{{ supplier.gst_no }}</td>
+                <td>{{ supplier.email_id }}</td>
+                <td>
+                <a href="/supplier/{{ supplier.id }}/view/" class="btn btn-sm btn-outline-dark me-1" title="View">👁</a>    
+                <a href="/supplier/{{ supplier.id }}/edit/" class="btn btn-sm btn-primary me-1">Edit</a>
+                <a href="/supplier/{{ supplier.id }}/delete/" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">No suppliers found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}
+
+
+
+
+
+

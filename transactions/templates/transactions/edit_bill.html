@@ -1,0 +1,215 @@
+{% extends "transactions/base.html" %}
+
+{% block title %}Edit Bill{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="page-title">Edit Bill</h1>
+        <p class="page-subtitle">Update bill entry details</p>
+    </div>
+    <a href="/bills/" class="btn btn-secondary">Back to Bills</a>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            {{ form.errors }}
+        </div>
+    {% endif %}
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="section-title">Confirmation Details</div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Confirmation</label>
+                    {{ form.confirmation }}
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Bill No</label>
+                    {{ form.bill_number }}
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Bill Date</label>
+                    {{ form.bill_date }}
+                </div>
+            </div>
+
+            <div class="mt-4 p-3 rounded bg-light border">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <strong>Supplier:</strong> {{ bill.confirmation.supplier }}
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Buyer:</strong> {{ bill.confirmation.buyer }}
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Supplier Place:</strong> {{ bill.confirmation.supplier_place }}
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Buyer Place:</strong> {{ bill.confirmation.buyer_place }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="section-title">Quantity & Amount Details</div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">No of Bags</label>
+                    {{ form.number_of_bags }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Packing (kg)</label>
+                    {{ form.packing_kg }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Quantity</label>
+                    {{ form.quantity }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Rate</label>
+                    <input type="number" id="id_rate" class="form-control bg-light"
+                           value="{{ bill.confirmation.rate }}" readonly>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Amount</label>
+                    {{ form.amount }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Bill Amount</label>
+                    {{ form.bill_amount }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="section-title">Payment & Transport Details</div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">GST</label>
+                    {{ form.gst }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Lorry Advance</label>
+                    {{ form.lorry_advance }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Lorry No</label>
+                    {{ form.lorry_number }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Amount Received</label>
+                    {{ form.amount_received }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="section-title">Others / Remarks</div>
+            {{ form.others }}
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2 mb-5">
+        <a href="/bills/" class="btn btn-secondary px-4">Cancel</a>
+        <button type="submit" class="btn btn-success px-4">Update Bill</button>
+    </div>
+</form>
+
+<script>
+function calculateBill() {
+    const bags = parseFloat(document.getElementById("id_number_of_bags").value) || 0;
+    const packing = parseFloat(document.getElementById("id_packing_kg").value) || 0;
+    const rate = parseFloat(document.getElementById("id_rate").value) || 0;
+
+    const quantity = bags * packing;
+    const amount = quantity * rate;
+
+    document.getElementById("id_quantity").value = quantity.toFixed(2);
+    document.getElementById("id_amount").value = amount.toFixed(2);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    ["id_number_of_bags", "id_packing_kg"].forEach(function (fieldId) {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            field.addEventListener("input", calculateBill);
+            field.addEventListener("change", calculateBill);
+        }
+    });
+
+    calculateBill();
+});
+</script>
+
+
+<style>
+    .card-body input,
+    .card-body select,
+    .card-body textarea {
+        background-color: #ffffff !important;
+
+        border: 1.5px solid #b8c4cc !important;
+
+        padding: 11px 13px;
+
+        font-size: 15px;
+
+        border-radius: 10px;
+
+        transition: all 0.2s ease;
+
+        box-shadow:
+            inset 0 1px 2px rgba(0,0,0,0.02);
+    }
+
+    .card-body input:hover,
+    .card-body select:hover,
+    .card-body textarea:hover {
+        border-color: #97a9b5 !important;
+    }
+
+    .card-body input:focus,
+    .card-body select:focus,
+    .card-body textarea:focus {
+        border-color: #22a565 !important;
+
+        box-shadow:
+            0 0 0 0.22rem rgba(34,165,101,0.14) !important;
+
+        outline: none;
+    }
+
+    .form-label {
+        color: #344054;
+        font-size: 14px;
+        margin-bottom: 7px;
+    }
+</style>
+{% endblock %}

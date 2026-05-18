@@ -1,0 +1,124 @@
+{% extends "transactions/base.html" %}
+
+{% block title %}Page Title{% endblock %}
+
+{% block content %}
+
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        
+        <div>
+            <h1 class="page-title">Confirmations</h1>
+            <p class="page-subtitle">Add or Manage confirmations</p>   
+        </div>
+        <div>
+        <a href="/" class="btn btn-secondary me-2">Dashboard</a>
+        <a href="/add-confirmation/" class="btn btn-primary">Add Confirmation</a>
+        </div>
+    </div>
+<div class="card">
+    <div class="card-body">  
+    
+        <form method="get" class="mb-3">
+            <div class="input-group"> 
+                
+                        
+                    <select name="type" class="form-select" style="max-width:180px;">
+                        <option value="">All</option>
+                        <option value="conf" {% if request.GET.type == "conf" %}selected{% endif %}>Confirmation No</option>
+                        <option value="supplier" {% if request.GET.type == "supplier" %}selected{% endif %}>Supplier</option>
+                        <option value="buyer" {% if request.GET.type == "buyer" %}selected{% endif %}>Buyer</option>
+                    </select>
+                        
+
+                    <input type="text" name="search" class="form-control"
+                        placeholder="Search confirmation, supplier, buyer..."
+                        value="{{ request.GET.search }}">
+
+                    <button class="btn btn-primary">Search</button>
+                    <a href="/confirmations/" class="btn btn-secondary">Clear</a>
+
+            </div>
+        </form>
+        <form method="get" class="card card-body mb-4">
+            <div class="row g-3 align-items-end">
+
+                <div class="col-md-3">
+                    <label class="form-label">Supplier</label>
+                    <select name="supplier" class="form-control">
+                        <option value="">All</option>
+                        {% for s in suppliers %}
+                            <option value="{{ s.id }}">{{ s.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Buyer</label>
+                    <select name="buyer" class="form-control">
+                        <option value="">All</option>
+                        {% for b in buyers %}
+                            <option value="{{ b.id }}">{{ b.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label">From</label>
+                    <input type="date" name="start_date" class="form-control">
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label">To</label>
+                    <input type="date" name="end_date" class="form-control">
+                </div>
+
+                <div class="col-md-2 d-flex gap-2">
+                    <button type="submit" class="btn btn-success w-100">Filter</button>
+                    <a href="/confirmations/" class="btn btn-secondary">Clear</a>
+                </div>
+
+            </div>
+        </form>
+        <table class="table table-hover table-bordered bg-white shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th>No</th>
+                    <th>Date</th>
+                    <th>Supplier</th>
+                    <th>Buyer</th>
+                    <th>Quantity</th>
+                    <th>Rate</th>
+                    <th>Delivery Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in confirmations %}
+                <tr>
+                    <td>{{ c.confirmation_number }}</td>
+                    <td>{{ c.confirmation_date }}</td>
+                    <td>{{ c.supplier }}</td>
+                    <td>{{ c.buyer }}</td>
+                    <td>{{ c.quantity }}</td>
+                    <td>{{ c.rate }}</td>
+                    <td>{{ c.date_of_delivery }}</td>
+                    <td>
+                    <a href="/confirmation/{{ c.id }}/view/" class="btn btn-sm btn-outline-dark me-1" title="View">👁</a>
+                    <a href="/confirmation/{{ c.id }}/print/" class="btn btn-sm btn-success me-1">Print</a>
+                    <a href="/confirmation/{{ c.id }}/edit/" class="btn btn-sm btn-primary me-1">Edit</a>
+                    <a href="/confirmation/{{ c.id }}/delete/" class="btn btn-sm btn-danger">Delete</a>
+                    
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center">No confirmations found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "transactions/base.html" %}
+
+{% block title %}Reports{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+    <h1 class="page-title">Reports</h1>
+    <p class="page-subtitle">Internal financial overview</p>
+</div>
+
+<div class="row g-4">
+
+    <div class="col-md-4">
+        <div class="card text-center p-4">
+            <h6>Total Bill Amount</h6>
+            <h4>₹ {{ total_amount }}</h4>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-center p-4">
+            <h6>Total Received</h6>
+            <h4>₹ {{ total_received }}</h4>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-center p-4">
+            <h6>Pending</h6>
+            <h4 class="text-danger">₹ {{ pending }}</h4>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

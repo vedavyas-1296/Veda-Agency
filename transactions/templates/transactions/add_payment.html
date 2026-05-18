@@ -1,0 +1,285 @@
+{% extends "transactions/base.html" %}
+
+{% block title %}Add Payment{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="page-title">Add Payment</h1>
+        <p class="page-subtitle">Enter payment details against a bill-linked confirmation</p>
+    </div>
+    <a href="/payments/" class="btn btn-secondary">Back to Payments</a>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            {{ form.errors }}
+        </div>
+    {% endif %}
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="section-title">Bill / Confirmation Details</div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Confirmation</label>
+                    {{ form.confirmation }}
+                </div>
+            </div>
+
+            <div id="payment-details" class="mt-4 p-3 rounded bg-light border">
+                <div class="row g-3">
+
+                    <div class="col-md-3">
+                        <strong>Supplier:</strong> <span id="supplier">-</span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <strong>Buyer:</strong> <span id="buyer">-</span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <strong>Supplier Place:</strong> <span id="supplier_place">-</span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <strong>Buyer Place:</strong> <span id="buyer_place">-</span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <strong>Bill No:</strong> <span id="bill_number">-</span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <strong>Bill Date:</strong> <span id="bill_date">-</span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <strong>Quantity:</strong> <span id="quantity">-</span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <strong>Lorry No:</strong> <span id="lorry_number">-</span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <strong>Bill Amount:</strong>
+                        ₹ <span id="bill_amount">0.00</span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <strong>Already Paid:</strong>
+                        ₹ <span id="paid_amount">0.00</span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <strong>Balance:</strong>
+                        ₹ <span id="balance_amount">0.00</span>
+                    </div>
+
+                </div>
+
+                <div id="payment-error" class="text-danger fw-bold mt-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="section-title mb-0">Payment Lines</div>
+                <button type="button" class="btn btn-outline-primary btn-sm" onclick="addRow()">Add Row</button>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered bg-white">
+                    <thead>
+                        <tr>
+                            <th style="width: 100px;">Serial No</th>
+                            <th style="width: 180px;">Date</th>
+                            <th>Description</th>
+                            <th style="width: 180px;">Amount</th>
+                            <th style="width: 80px;">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="payment-lines">
+                        <tr>
+                            <td>
+                                <input type="number" name="serial_no" class="form-control" value="1">
+                            </td>
+                            <td>
+                                <input type="date" name="date" class="form-control">
+                            </td>
+                            <td>
+                                <input type="text" name="description" class="form-control" placeholder="Payment description">
+                            </td>
+                            <td>
+                                <input type="number" name="amount" class="form-control amount-field" step="0.01" oninput="calculateTotal()">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeRow(this)">X</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <h5>Total Paying Now: ₹ <span id="total-amount">0.00</span></h5>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <h5>Balance After This Payment: ₹ <span id="balance-after-payment">0.00</span></h5>
+            </div>
+
+            <div id="over-payment-warning" class="alert alert-warning mt-3 d-none">
+                Payment amount is greater than the remaining balance.
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2 mb-5">
+        <a href="/payments/" class="btn btn-secondary px-4">Cancel</a>
+        <button id="save-payment-btn" type="submit" class="btn btn-success px-4">Save Payment</button>
+    </div>
+</form>
+
+<script>
+let currentBalance = 0;
+
+function numberValue(value) {
+    return parseFloat(value) || 0;
+}
+
+function calculateTotal() {
+    let total = 0;
+
+    document.querySelectorAll(".amount-field").forEach(function (field) {
+        total += numberValue(field.value);
+    });
+
+    const balanceAfterPayment = currentBalance - total;
+
+    document.getElementById("total-amount").innerText = total.toFixed(2);
+    document.getElementById("balance-after-payment").innerText = balanceAfterPayment.toFixed(2);
+
+    const warning = document.getElementById("over-payment-warning");
+
+    if (total > currentBalance && currentBalance > 0) {
+        warning.classList.remove("d-none");
+    } else {
+        warning.classList.add("d-none");
+    }
+}
+
+function addRow() {
+    const tbody = document.getElementById("payment-lines");
+    const rowCount = tbody.rows.length + 1;
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+        <td><input type="number" name="serial_no" class="form-control" value="${rowCount}"></td>
+        <td><input type="date" name="date" class="form-control"></td>
+        <td><input type="text" name="description" class="form-control" placeholder="Payment description"></td>
+        <td><input type="number" name="amount" class="form-control amount-field" step="0.01" oninput="calculateTotal()"></td>
+        <td>
+            <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeRow(this)">X</button>
+        </td>
+    `;
+
+    tbody.appendChild(row);
+}
+
+function removeRow(button) {
+    const tbody = document.getElementById("payment-lines");
+
+    if (tbody.rows.length > 1) {
+        button.closest("tr").remove();
+        calculateTotal();
+        resetSerialNumbers();
+    }
+}
+
+function resetSerialNumbers() {
+    const rows = document.querySelectorAll("#payment-lines tr");
+
+    rows.forEach(function (row, index) {
+        const serialInput = row.querySelector('input[name="serial_no"]');
+        if (serialInput) {
+            serialInput.value = index + 1;
+        }
+    });
+}
+
+function clearPaymentDetails() {
+    document.getElementById("supplier").innerText = "-";
+    document.getElementById("buyer").innerText = "-";
+    document.getElementById("supplier_place").innerText = "-";
+    document.getElementById("buyer_place").innerText = "-";
+    document.getElementById("bill_number").innerText = "-";
+    document.getElementById("bill_date").innerText = "-";
+    document.getElementById("quantity").innerText = "-";
+    document.getElementById("lorry_number").innerText = "-";
+    document.getElementById("bill_amount").innerText = "0.00";
+    document.getElementById("paid_amount").innerText = "0.00";
+    document.getElementById("balance_amount").innerText = "0.00";
+    document.getElementById("payment-error").innerText = "";
+
+    currentBalance = 0;
+    calculateTotal();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const confirmationSelect = document.getElementById("id_confirmation");
+
+    if (!confirmationSelect) {
+        return;
+    }
+
+    confirmationSelect.addEventListener("change", function () {
+        const id = this.value;
+
+        if (!id) {
+            clearPaymentDetails();
+            return;
+        }
+
+        fetch(`/get-payment-details/${id}/`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("No bill found for this confirmation.");
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById("supplier").innerText = data.supplier || "-";
+                document.getElementById("buyer").innerText = data.buyer || "-";
+                document.getElementById("supplier_place").innerText = data.supplier_place || "-";
+                document.getElementById("buyer_place").innerText = data.buyer_place || "-";
+                document.getElementById("bill_number").innerText = data.bill_number || "-";
+                document.getElementById("bill_date").innerText = data.bill_date || "-";
+                document.getElementById("quantity").innerText = data.quantity || "-";
+                document.getElementById("lorry_number").innerText = data.lorry_number || "-";
+                document.getElementById("bill_amount").innerText = data.bill_amount || "0.00";
+                document.getElementById("paid_amount").innerText = data.paid_amount || "0.00";
+                document.getElementById("balance_amount").innerText = data.balance_amount || "0.00";
+                document.getElementById("payment-error").innerText = "";
+
+                currentBalance = numberValue(data.balance_amount);
+                calculateTotal();
+            })
+            .catch(error => {
+                clearPaymentDetails();
+                document.getElementById("payment-error").innerText = error.message;
+            });
+    });
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,261 @@
+{% extends "transactions/base.html" %}
+
+{% block title %}Commission Report{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="page-title">Commission Report</h1>
+        <p class="page-subtitle">Calculate commission based on quantity in quintals</p>
+    </div>
+    <div>
+    <a href="/" class="btn btn-secondary me-10">Dashboard</a>
+    <button onclick="window.print()" class="btn btn-outline-success">
+        Print / Save PDF
+    </button>
+    </div>
+</div>
+
+
+
+<div class="card mb-4 no-print">
+    <div class="card-body">
+
+        <div class="section-title">Report Filters</div>
+
+        <form method="get">
+            <div class="row g-4 align-items-end">
+
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Party Type</label>
+                    <select name="party_type" id="party_type" class="form-select" onchange="togglePartyDropdowns()">
+                        <option value="">Select</option>
+                        <option value="supplier" {% if party_type == "supplier" %}selected{% endif %}>Supplier</option>
+                        <option value="buyer" {% if party_type == "buyer" %}selected{% endif %}>Buyer</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3" id="supplier-box">
+                    <label class="form-label fw-semibold">Supplier</label>
+                    <select name="party" class="form-select" id="supplier-select">
+                        <option value="">Select Supplier</option>
+                        {% for s in suppliers %}
+                            <option value="{{ s.id }}" {% if party_type == "supplier" and party_id == s.id|stringformat:"s" %}selected{% endif %}>
+                                {{ s.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-3" id="buyer-box">
+                    <label class="form-label fw-semibold">Buyer</label>
+                    <select name="party" class="form-select" id="buyer-select">
+                        <option value="">Select Buyer</option>
+                        {% for b in buyers %}
+                            <option value="{{ b.id }}" {% if party_type == "buyer" and party_id == b.id|stringformat:"s" %}selected{% endif %}>
+                                {{ b.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label fw-semibold">From Date</label>
+                    <input type="date" name="start_date" class="form-control" value="{{ start_date }}">
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label fw-semibold">To Date</label>
+                    <input type="date" name="end_date" class="form-control" value="{{ end_date }}">
+                </div>
+
+                <div class="col-md-2 d-flex gap-2">
+                    <button type="submit" class="btn btn-success w-100">Generate</button>
+                    <a href="/commission-report/" class="btn btn-secondary">Clear</a>
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% if party_type and party_id %}
+
+<div class="card mb-4 report-header-card">
+    <div class="card-body">
+
+        <div class="text-center mb-3">
+            <h2 class="report-business-name">Veda Agency</h2>
+            <p class="mb-1">Groundnut & Maize Canvassing Agent</p>
+            <p class="mb-0 text-muted">#136 KG Market, Vijayawada-1 | +91 9989151376, 903224466</p>
+        </div>
+
+        <hr>
+
+        <div class="d-flex justify-content-between flex-wrap">
+            <div>
+                <h4 class="mb-1">Commission Report</h4>
+                <p class="mb-0">
+                    <strong>Party Type:</strong> {{ party_type|title }}<br>
+                    <strong>Party Name:</strong> {{ selected_party_name }}
+                </p>
+            </div>
+
+            <div class="text-end">
+                <p class="mb-0">
+                    <strong>From:</strong> {{ start_date|default:"-" }}<br>
+                    <strong>To:</strong> {{ end_date|default:"-" }}
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover bg-white align-middle">
+                <thead>
+                    <tr>
+                        <th>Conf No</th>
+                        <th>Conf Date</th>
+                        <th>Bill No</th>
+                        <th>Bill Date</th>
+                        <th>Supplier</th>
+                        <th>Buyer</th>
+                        <th class="text-end">Qty Kg</th>
+                        <th class="text-end">Qty Quintal</th>
+                        <th class="text-end">Comm Rate</th>
+                        <th class="text-end">Commission</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for row in report_rows %}
+                    <tr>
+                        <td>{{ row.confirmation_no }}</td>
+                        <td>{{ row.confirmation_date }}</td>
+                        <td>{{ row.bill_no }}</td>
+                        <td>{{ row.bill_date }}</td>
+                        <td>{{ row.supplier }}</td>
+                        <td>{{ row.buyer }}</td>
+                        <td class="text-end">{{ row.quantity_kg }}</td>
+                        <td class="text-end">{{ row.quantity_quintal|floatformat:2 }}</td>
+                        <td class="text-end">₹ {{ row.commission_rate }}</td>
+                        <td class="text-end fw-semibold">₹ {{ row.commission_amount|floatformat:2 }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="10" class="text-center text-muted py-4">
+                            No records found for selected filters.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <th colspan="9" class="text-end">Total Commission</th>
+                        <th class="text-end">₹ {{ total_commission|floatformat:2 }}</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+{% else %}
+
+<div class="card">
+    <div class="card-body text-center py-5">
+        <h5 class="text-muted">Select party type and party name to generate commission report.</h5>
+    </div>
+</div>
+
+{% endif %}
+
+<script>
+function togglePartyDropdowns() {
+    const partyType = document.getElementById("party_type").value;
+    const supplierBox = document.getElementById("supplier-box");
+    const buyerBox = document.getElementById("buyer-box");
+    const supplierSelect = document.getElementById("supplier-select");
+    const buyerSelect = document.getElementById("buyer-select");
+
+    if (partyType === "supplier") {
+        supplierBox.style.display = "block";
+        buyerBox.style.display = "none";
+        buyerSelect.disabled = true;
+        supplierSelect.disabled = false;
+    } else if (partyType === "buyer") {
+        supplierBox.style.display = "none";
+        buyerBox.style.display = "block";
+        supplierSelect.disabled = true;
+        buyerSelect.disabled = false;
+    } else {
+        supplierBox.style.display = "none";
+        buyerBox.style.display = "none";
+        supplierSelect.disabled = true;
+        buyerSelect.disabled = true;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", togglePartyDropdowns);
+</script>
+
+<style>
+    .report-header-card {
+        border-left: 6px solid #198754;
+    }
+
+    .report-business-name {
+        font-weight: 900;
+        color: #1f2933;
+        margin-bottom: 4px;
+    }
+
+    tfoot th {
+        background: #f1f5f4 !important;
+        font-size: 16px;
+    }
+
+    @media print {
+        .sidebar,
+        .sidebar-toggle,
+        .no-print,
+        .btn {
+            display: none !important;
+        }
+
+        .content-area {
+            margin-left: 0 !important;
+            width: 100% !important;
+            padding: 0 !important;
+        }
+
+        body {
+            background: white !important;
+        }
+
+        .card {
+            box-shadow: none !important;
+            border: none !important;
+        }
+
+        .page-title,
+        .page-subtitle {
+            display: none;
+        }
+
+        table {
+            font-size: 12px;
+        }
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "transactions/base.html" %}
+
+{% block title %}View Bill{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="page-title">Bill Details</h1>
+        <p class="page-subtitle">Read-only view of bill record</p>
+    </div>
+    <div>
+        <a href="/bill/{{ bill.id }}/print/" class="btn btn-outline-success me-2">Print</a>
+        <a href="/bills/" class="btn btn-secondary">Back</a>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="section-title">Confirmation Details</div>
+        <div class="row g-3">
+            <div class="col-md-4"><strong>Confirmation No:</strong> {{ bill.confirmation.confirmation_number }}</div>
+            <div class="col-md-4"><strong>Confirmation Date:</strong> {{ bill.confirmation.confirmation_date }}</div>
+            <div class="col-md-4"><strong>Rate:</strong> ₹ {{ bill.confirmation.rate }}</div>
+            <div class="col-md-6"><strong>Supplier:</strong> {{ bill.confirmation.supplier }}</div>
+            <div class="col-md-6"><strong>Buyer:</strong> {{ bill.confirmation.buyer }}</div>
+            <div class="col-md-6"><strong>Supplier Place:</strong> {{ bill.confirmation.supplier_place }}</div>
+            <div class="col-md-6"><strong>Buyer Place:</strong> {{ bill.confirmation.buyer_place }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="section-title">Bill Details</div>
+        <div class="row g-3">
+            <div class="col-md-4"><strong>Bill No:</strong> {{ bill.bill_number }}</div>
+            <div class="col-md-4"><strong>Bill Date:</strong> {{ bill.bill_date }}</div>
+            <div class="col-md-4"><strong>No of Bags:</strong> {{ bill.number_of_bags }}</div>
+            <div class="col-md-4"><strong>Packing Kg:</strong> {{ bill.packing_kg }}</div>
+            <div class="col-md-4"><strong>Quantity:</strong> {{ bill.quantity }}</div>
+            <div class="col-md-4"><strong>Amount:</strong> ₹ {{ bill.amount }}</div>
+            <div class="col-md-4"><strong>GST:</strong> ₹ {{ bill.gst }}</div>
+            <div class="col-md-4"><strong>Lorry Advance:</strong> ₹ {{ bill.lorry_advance }}</div>
+            <div class="col-md-4"><strong>Lorry No:</strong> {{ bill.lorry_number }}</div>
+            <div class="col-md-4"><strong>Bill Amount:</strong> ₹ {{ bill.bill_amount }}</div>
+            <div class="col-md-4"><strong>Amount Received:</strong> ₹ {{ bill.amount_received }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="section-title">Others</div>
+        <p class="mb-0">{{ bill.others }}</p>
+    </div>
+</div>
+
+{% endblock %}

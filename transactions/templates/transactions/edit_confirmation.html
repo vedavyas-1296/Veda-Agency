@@ -1,0 +1,242 @@
+{% extends "transactions/base.html" %}
+
+{% block title %}Edit Confirmation{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="page-title">Edit Confirmation</h1>
+        <p class="page-subtitle">Update deal confirmation details</p>
+    </div>
+    <a href="/confirmations/" class="btn btn-secondary">Back to Confirmations</a>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            {{ form.errors }}
+        </div>
+    {% endif %}
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="section-title">Confirmation Details</div>
+
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Confirmation No</label>
+                    <input type="text"
+                           class="form-control bg-light fw-semibold"
+                           value="{{ confirmation.confirmation_number }}"
+                           readonly>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Confirmation Date</label>
+                    {{ form.confirmation_date }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Date of Delivery</label>
+                    {{ form.date_of_delivery }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="section-title">Party Details</div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Supplier</label>
+                    {{ form.supplier }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Buyer</label>
+                    {{ form.buyer }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Supplier Place</label>
+                    {{ form.supplier_place }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Buyer Place</label>
+                    {{ form.buyer_place }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="section-title">Product Details</div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Quality</label>
+                    {{ form.quality }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Count</label>
+                    {{ form.count }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Moisture</label>
+                    {{ form.moisture }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Quantity</label>
+                    {{ form.quantity }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Gunny</label>
+                    {{ form.gunny }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Rate</label>
+                    {{ form.rate }}
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Supplier Commission Rate / Quintal</label>
+                    {{ form.supplier_commission_rate }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Buyer Commission Rate / Quintal</label>
+                    {{ form.buyer_commission_rate }}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="section-title">Delivery & Broker Details</div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Packing</label>
+                    {{ form.packing }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Delivery At</label>
+                    {{ form.delivery_at }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Supplier Broker</label>
+                    {{ form.supplier_broker }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Buyer Broker</label>
+                    {{ form.buyer_broker }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="section-title">Remarks</div>
+            {{ form.remarks }}
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2 mb-5">
+        <a href="/confirmations/" class="btn btn-secondary px-4">Cancel</a>
+        <button type="submit" class="btn btn-success px-4">Update Confirmation</button>
+    </div>
+</form>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const supplierField = document.getElementById("id_supplier");
+    const buyerField = document.getElementById("id_buyer");
+
+    function fetchDetails() {
+        const supplier_id = supplierField.value;
+        const buyer_id = buyerField.value;
+
+        let url = `/get-party-details/?`;
+
+        if (supplier_id) url += `supplier_id=${supplier_id}&`;
+        if (buyer_id) url += `buyer_id=${buyer_id}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.supplier_place) {
+                    document.getElementById("id_supplier_place").value = data.supplier_place;
+                }
+                if (data.buyer_place) {
+                    document.getElementById("id_buyer_place").value = data.buyer_place;
+                }
+            });
+    }
+
+    supplierField.addEventListener("change", fetchDetails);
+    buyerField.addEventListener("change", fetchDetails);
+});
+</script>
+
+<style>
+    .card-body input,
+    .card-body select,
+    .card-body textarea {
+        background-color: #ffffff !important;
+
+        border: 1.5px solid #b8c4cc !important;
+
+        padding: 11px 13px;
+
+        font-size: 15px;
+
+        border-radius: 10px;
+
+        transition: all 0.2s ease;
+
+        box-shadow:
+            inset 0 1px 2px rgba(0,0,0,0.02);
+    }
+
+    .card-body input:hover,
+    .card-body select:hover,
+    .card-body textarea:hover {
+        border-color: #97a9b5 !important;
+    }
+
+    .card-body input:focus,
+    .card-body select:focus,
+    .card-body textarea:focus {
+        border-color: #22a565 !important;
+
+        box-shadow:
+            0 0 0 0.22rem rgba(34,165,101,0.14) !important;
+
+        outline: none;
+    }
+
+    .form-label {
+        color: #344054;
+        font-size: 14px;
+        margin-bottom: 7px;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends "transactions/base.html" %}
+
+{% block title %}Edit Buyer{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="page-title">Edit Buyer</h1>
+        <p class="page-subtitle">Update buyer master details</p>
+    </div>
+
+    <a href="/buyers/" class="btn btn-secondary">
+        Back to Buyers
+    </a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+
+        <form method="post">
+            {% csrf_token %}
+
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    {{ form.errors }}
+                </div>
+            {% endif %}
+
+            <div class="section-title">
+                Buyer Information
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Buyer Name</label>
+                    {{ form.name }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Phone Number</label>
+                    {{ form.phone_no }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Email Address</label>
+                    {{ form.email_id }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">GST Number</label>
+                    {{ form.gst_no }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Place</label>
+                    {{ form.place }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Zipcode</label>
+                    {{ form.zipcode }}
+                </div>
+
+                <div class="col-md-12">
+                    <label class="form-label fw-semibold">Address</label>
+                    {{ form.address }}
+                </div>
+
+                <div class="col-md-12">
+                    <label class="form-label fw-semibold">Remarks</label>
+                    {{ form.remarks }}
+                </div>
+
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 mt-4">
+                <a href="/buyers/" class="btn btn-secondary px-4">Cancel</a>
+                <button type="submit" class="btn btn-success px-4">Update Buyer</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<style>
+    .card-body input,
+    .card-body select,
+    .card-body textarea {
+        background-color: #ffffff !important;
+        border: 1.5px solid #b8c4cc !important;
+        padding: 11px 13px;
+        font-size: 15px;
+        border-radius: 10px;
+        transition: all 0.2s ease;
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
+    }
+
+    .card-body input:hover,
+    .card-body select:hover,
+    .card-body textarea:hover {
+        border-color: #97a9b5 !important;
+    }
+
+    .card-body input:focus,
+    .card-body select:focus,
+    .card-body textarea:focus {
+        border-color: #22a565 !important;
+        box-shadow: 0 0 0 0.22rem rgba(34,165,101,0.14) !important;
+        outline: none;
+    }
+
+    .form-label {
+        color: #344054;
+        font-size: 14px;
+        margin-bottom: 7px;
+    }
+</style>
+
+{% endblock %}

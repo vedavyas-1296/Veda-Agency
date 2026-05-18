@@ -1,0 +1,69 @@
+{% extends "transactions/base.html" %}
+
+{% block title %}Page Title{% endblock %}
+
+{% block content %}
+
+
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="page-title">Brokers</h1>
+            <p class="page-subtitle">Add or manage Brokers</p>   
+        </div>
+        <div>
+            <a href="/" class="btn btn-secondary me-2">Dashboard</a>
+            <a href="/add-broker/" class="btn btn-primary">Add Broker</a>
+        </div>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+<div class="card">
+    <div class="card-body"> 
+
+    <form method="get" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="search" class="form-control"
+               placeholder="Search broker..."
+               value="{{ request.GET.search }}">
+        <button class="btn btn-primary">Search</button>
+        <a href="/brokers/" class="btn btn-secondary">Clear</a>
+    </div>
+</form>
+
+    <table class="table table-hover table-bordered bg-white shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Place</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for broker in brokers %}
+            <tr>
+                <td>{{ broker.name }}</td>
+                <td>{{ broker.place }}</td>
+                <td>{{ broker.phone_no }}</td>
+                <td>
+                    <a href="/broker/{{ broker.id }}/view/" class="btn btn-sm btn-outline-dark me-1" title="View">👁</a>
+                    <a href="/broker/{{ broker.id }}/edit/" class="btn btn-sm btn-primary me-1">Edit</a>
+                    <a href="/broker/{{ broker.id }}/delete/" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No brokers found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+
+{% endblock %}
