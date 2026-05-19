@@ -26,6 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-#d9(3(_f-l!1ld_q_-qq7lf3cchwfwr^ac#2*%dzag+1t5p5p8'
+DATABASE_URL = "postgresql://neondb_owner:npg_kQ7vqw5ZXIKt@ep-royal-bonus-aq3m4ycq-pooler.c-8.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -133,6 +134,8 @@ database_url = os.getenv("DATABASE_URL")
 if database_url:
     DATABASES["default"] = dj_database_url.parse(
         database_url,
-        conn_max_age=600,
+        conn_max_age=0,
         ssl_require=True
     )
+
+    DATABASES["default"]["CONN_HEALTH_CHECKS"] = True
