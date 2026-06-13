@@ -216,7 +216,120 @@
     .modern-module-card {
         position: relative;
         overflow: hidden;
-        text-decoration: none;
+        text-decoration: {% extends "transactions/base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div style="padding: 2rem 0 1.25rem; border-bottom: 0.5px solid #e5e7eb; margin-bottom: 1.5rem;">
+    <h1 style="font-size: 22px; font-weight: 500; margin: 0 0 4px; color: #111;">Dashboard</h1>
+    <p style="font-size: 14px; color: #6b7280; margin: 0;">Manage daily agency operations</p>
+</div>
+
+<!-- Quick Actions -->
+<div style="background: #fff; border: 0.5px solid #e5e7eb; border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1.5rem;">
+    <p style="font-size: 11px; font-weight: 500; color: #6b7280; text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 10px;">Quick Actions</p>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="/add-supplier/" class="btn btn-sm" style="background:#eff6ff; color:#1d4ed8; border:0.5px solid #bfdbfe; font-size:13px;">+ Add Supplier</a>
+        <a href="/add-buyer/" class="btn btn-sm" style="background:#eff6ff; color:#1d4ed8; border:0.5px solid #bfdbfe; font-size:13px;">+ Add Buyer</a>
+        <a href="/add-broker/" class="btn btn-sm" style="background:#eff6ff; color:#1d4ed8; border:0.5px solid #bfdbfe; font-size:13px;">+ Add Broker</a>
+        <a href="/add-confirmation/" class="btn btn-sm" style="background:#f0fdf4; color:#15803d; border:0.5px solid #bbf7d0; font-size:13px;">+ Add Confirmation</a>
+        <a href="/add-bill/" class="btn btn-sm" style="background:#f0fdf4; color:#15803d; border:0.5px solid #bbf7d0; font-size:13px;">+ Add Bill</a>
+        <a href="/add-payment/" class="btn btn-sm" style="background:#f0fdf4; color:#15803d; border:0.5px solid #bbf7d0; font-size:13px;">+ Add Payment</a>
+    </div>
+</div>
+
+<!-- Module Cards -->
+<div class="row g-3">
+
+    <div class="col-md-4">
+        <a href="/suppliers/" class="text-decoration-none d-block h-100"
+           style="background:#fff; border:0.5px solid #e5e7eb; border-radius:12px; padding:1.25rem;"
+           onmouseover="this.style.background='#f9fafb'; this.style.borderColor='#d1d5db';"
+           onmouseout="this.style.background='#fff'; this.style.borderColor='#e5e7eb';">
+            <div style="width:36px; height:36px; border-radius:8px; background:#f0fdf4; display:flex; align-items:center; justify-content:center; font-size:18px; margin-bottom:12px;">🌾</div>
+            <p style="font-size:15px; font-weight:500; color:#111; margin:0 0 4px;">Suppliers</p>
+            <p style="font-size:13px; color:#6b7280; margin:0 0 14px; line-height:1.5;">Manage supplier master details</p>
+            <span style="font-size:13px; color:#1d4ed8; font-weight:500;">Open Suppliers →</span>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a href="/buyers/" class="text-decoration-none d-block h-100"
+           style="background:#fff; border:0.5px solid #e5e7eb; border-radius:12px; padding:1.25rem;"
+           onmouseover="this.style.background='#f9fafb'; this.style.borderColor='#d1d5db';"
+           onmouseout="this.style.background='#fff'; this.style.borderColor='#e5e7eb';">
+            <div style="width:36px; height:36px; border-radius:8px; background:#eff6ff; display:flex; align-items:center; justify-content:center; font-size:18px; margin-bottom:12px;">🏢</div>
+            <p style="font-size:15px; font-weight:500; color:#111; margin:0 0 4px;">Buyers</p>
+            <p style="font-size:13px; color:#6b7280; margin:0 0 14px; line-height:1.5;">Manage buyer master details</p>
+            <span style="font-size:13px; color:#1d4ed8; font-weight:500;">Open Buyers →</span>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a href="/brokers/" class="text-decoration-none d-block h-100"
+           style="background:#fff; border:0.5px solid #e5e7eb; border-radius:12px; padding:1.25rem;"
+           onmouseover="this.style.background='#f9fafb'; this.style.borderColor='#d1d5db';"
+           onmouseout="this.style.background='#fff'; this.style.borderColor='#e5e7eb';">
+            <div style="width:36px; height:36px; border-radius:8px; background:#faeeda; display:flex; align-items:center; justify-content:center; font-size:18px; margin-bottom:12px;">🤝</div>
+            <p style="font-size:15px; font-weight:500; color:#111; margin:0 0 4px;">Brokers</p>
+            <p style="font-size:13px; color:#6b7280; margin:0 0 14px; line-height:1.5;">Manage broker contact details</p>
+            <span style="font-size:13px; color:#1d4ed8; font-weight:500;">Open Brokers →</span>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a href="/confirmations/" class="text-decoration-none d-block h-100"
+           style="background:#fff; border:0.5px solid #e5e7eb; border-radius:12px; padding:1.25rem;"
+           onmouseover="this.style.background='#f9fafb'; this.style.borderColor='#d1d5db';"
+           onmouseout="this.style.background='#fff'; this.style.borderColor='#e5e7eb';">
+            <div style="width:36px; height:36px; border-radius:8px; background:#eeedfe; display:flex; align-items:center; justify-content:center; font-size:18px; margin-bottom:12px;">📋</div>
+            <p style="font-size:15px; font-weight:500; color:#111; margin:0 0 4px;">Confirmations</p>
+            <p style="font-size:13px; color:#6b7280; margin:0 0 14px; line-height:1.5;">Create, manage and print confirmations</p>
+            <span style="font-size:13px; color:#1d4ed8; font-weight:500;">Open Confirmations →</span>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a href="/bills/" class="text-decoration-none d-block h-100"
+           style="background:#fff; border:0.5px solid #e5e7eb; border-radius:12px; padding:1.25rem;"
+           onmouseover="this.style.background='#f9fafb'; this.style.borderColor='#d1d5db';"
+           onmouseout="this.style.background='#fff'; this.style.borderColor='#e5e7eb';">
+            <div style="width:36px; height:36px; border-radius:8px; background:#faece7; display:flex; align-items:center; justify-content:center; font-size:18px; margin-bottom:12px;">🧾</div>
+            <p style="font-size:15px; font-weight:500; color:#111; margin:0 0 4px;">Bills</p>
+            <p style="font-size:13px; color:#6b7280; margin:0 0 14px; line-height:1.5;">Create, manage and print bill entries</p>
+            <span style="font-size:13px; color:#1d4ed8; font-weight:500;">Open Bills →</span>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a href="/payments/" class="text-decoration-none d-block h-100"
+           style="background:#fff; border:0.5px solid #e5e7eb; border-radius:12px; padding:1.25rem;"
+           onmouseover="this.style.background='#f9fafb'; this.style.borderColor='#d1d5db';"
+           onmouseout="this.style.background='#fff'; this.style.borderColor='#e5e7eb';">
+            <div style="width:36px; height:36px; border-radius:8px; background:#eaf3de; display:flex; align-items:center; justify-content:center; font-size:18px; margin-bottom:12px;">💵</div>
+            <p style="font-size:15px; font-weight:500; color:#111; margin:0 0 4px;">Payments</p>
+            <p style="font-size:13px; color:#6b7280; margin:0 0 14px; line-height:1.5;">Record and manage payment entries</p>
+            <span style="font-size:13px; color:#1d4ed8; font-weight:500;">Open Payments →</span>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a href="/commission-report/" class="text-decoration-none d-block h-100"
+           style="background:#fff; border:0.5px solid #e5e7eb; border-radius:12px; padding:1.25rem;"
+           onmouseover="this.style.background='#f9fafb'; this.style.borderColor='#d1d5db';"
+           onmouseout="this.style.background='#fff'; this.style.borderColor='#e5e7eb';">
+            <div style="width:36px; height:36px; border-radius:8px; background:#f3f4f6; display:flex; align-items:center; justify-content:center; font-size:18px; margin-bottom:12px;">📊</div>
+            <p style="font-size:15px; font-weight:500; color:#111; margin:0 0 4px;">Reports</p>
+            <p style="font-size:13px; color:#6b7280; margin:0 0 14px; line-height:1.5;">Generate Seller and Buyer Commission reports</p>
+            <span style="font-size:13px; color:#1d4ed8; font-weight:500;">Open Reports →</span>
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}none;
         color: #1f2933;
         background:
             radial-gradient(circle at top right, rgba(25,135,84,0.10), transparent 30%),
