@@ -4,106 +4,328 @@
 
 {% block content %}
 
-<div class="dashboard-header">
-    <h1 class="page-title">Dashboard</h1>
-    <p class="page-subtitle">Manage daily agency operations</p>
-</div>
+<div class="modern-dashboard">
 
-<div class="card quick-card">
-    <div class="card-body">
-        <div class="section-title">Quick Actions</div>
-
-        <div class="d-flex flex-wrap gap-2">
-            <a href="/add-supplier/" class="btn btn-primary">Add Supplier</a>
-            <a href="/add-buyer/" class="btn btn-primary">Add Buyer</a>
-            <a href="/add-broker/" class="btn btn-primary">Add Broker</a>
-            <a href="/add-confirmation/" class="btn btn-success">Add Confirmation</a>
-            <a href="/add-bill/" class="btn btn-success">Add Bill</a>
-            <a href="/add-payment/" class="btn btn-success">Add Payment</a>
-
+    <div class="dashboard-hero mb-4">
+        <div>
+            <p class="hero-label">Veda Agency</p>
+            <h1>Dashboard</h1>
+            <p>Manage daily agency operations from one clean workspace.</p>
         </div>
     </div>
+
+    <div class="quick-actions-panel mb-4">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
+            <div>
+                <h5 class="mb-1">Quick Actions</h5>
+                <p class="text-muted mb-0">Create new records faster</p>
+            </div>
+        </div>
+
+        <div class="quick-action-grid">
+            <a href="/add-supplier/" class="quick-action-card">
+                <span>🌾</span>
+                <div>Add Supplier</div>
+            </a>
+
+            <a href="/add-buyer/" class="quick-action-card">
+                <span>🏢</span>
+                <div>Add Buyer</div>
+            </a>
+
+            <a href="/add-broker/" class="quick-action-card">
+                <span>🤝</span>
+                <div>Add Broker</div>
+            </a>
+
+            <a href="/add-confirmation/" class="quick-action-card success">
+                <span>📄</span>
+                <div>Add Confirmation</div>
+            </a>
+
+            <a href="/add-bill/" class="quick-action-card success">
+                <span>🧾</span>
+                <div>Add Bill</div>
+            </a>
+
+            <a href="/add-payment/" class="quick-action-card success">
+                <span>💰</span>
+                <div>Add Payment</div>
+            </a>
+        </div>
+    </div>
+
+    <div class="module-grid">
+
+        <a href="/suppliers/" class="modern-module-card">
+            <div class="module-top">
+                <div class="module-badge">🌾</div>
+                <span>Master</span>
+            </div>
+            <h4>Suppliers</h4>
+            <p>Manage supplier master details and contact information.</p>
+            <div class="module-footer">Open Suppliers →</div>
+        </a>
+
+        <a href="/buyers/" class="modern-module-card">
+            <div class="module-top">
+                <div class="module-badge">🏢</div>
+                <span>Master</span>
+            </div>
+            <h4>Buyers</h4>
+            <p>Manage buyer master details and business contacts.</p>
+            <div class="module-footer">Open Buyers →</div>
+        </a>
+
+        <a href="/brokers/" class="modern-module-card">
+            <div class="module-top">
+                <div class="module-badge">🤝</div>
+                <span>Contacts</span>
+            </div>
+            <h4>Brokers</h4>
+            <p>Maintain broker records used in confirmations.</p>
+            <div class="module-footer">Open Brokers →</div>
+        </a>
+
+        <a href="/confirmations/" class="modern-module-card highlight">
+            <div class="module-top">
+                <div class="module-badge">📄</div>
+                <span>Deals</span>
+            </div>
+            <h4>Confirmations</h4>
+            <p>Create, manage and print professional deal confirmations.</p>
+            <div class="module-footer">Open Confirmations →</div>
+        </a>
+
+        <a href="/bills/" class="modern-module-card highlight">
+            <div class="module-top">
+                <div class="module-badge">🧾</div>
+                <span>Billing</span>
+            </div>
+            <h4>Bills</h4>
+            <p>Create and track bill entries linked to confirmations.</p>
+            <div class="module-footer">Open Bills →</div>
+        </a>
+
+        <a href="/payments/" class="modern-module-card highlight">
+            <div class="module-top">
+                <div class="module-badge">💰</div>
+                <span>Accounts</span>
+            </div>
+            <h4>Payments</h4>
+            <p>Record payments and track balances against bills.</p>
+            <div class="module-footer">Open Payments →</div>
+        </a>
+
+    </div>
+
 </div>
 
-<div class="row g-4 dashboard-grid">
+<style>
+    .modern-dashboard {
+        animation: fadeIn 0.25s ease;
+    }
 
-    <div class="col-md-4">
-        <a href="/suppliers/" class="text-decoration-none text-dark">
-            <div class="module-card">
-                <div class="module-icon">🌾</div>
-                <h5>Suppliers</h5>
-                <p>Manage supplier master details</p>
-                <span class="module-link">Open Suppliers →</span>
-            </div>
-        </a>
-    </div>
+    .dashboard-hero {
+        background:
+            radial-gradient(circle at top right, rgba(25,135,84,0.16), transparent 35%),
+            linear-gradient(135deg, #ffffff, #f8fbf9);
+        border: 1px solid rgba(25,135,84,0.10);
+        border-radius: 28px;
+        padding: 30px 34px;
+        box-shadow: 0 12px 36px rgba(15,23,42,0.06);
+    }
 
-    <div class="col-md-4">
-        <a href="/buyers/" class="text-decoration-none text-dark">
-            <div class="module-card">
-                <div class="module-icon">🏢</div>
-                <h5>Buyers</h5>
-                <p>Manage buyer master details</p>
-                <span class="module-link">Open Buyers →</span>
-            </div>
-        </a>
-    </div>
+    .hero-label {
+        text-transform: uppercase;
+        letter-spacing: 1.6px;
+        font-size: 12px;
+        color: #198754;
+        font-weight: 900;
+        margin-bottom: 6px;
+    }
 
-    <div class="col-md-4">
-        <a href="/brokers/" class="text-decoration-none text-dark">
-            <div class="module-card">
-                <div class="module-icon">🤝</div>
-                <h5>Brokers</h5>
-                <p>Manage broker contact details</p>
-                <span class="module-link">Open Brokers →</span>
-            </div>
-        </a>
-    </div>
+    .dashboard-hero h1 {
+        font-size: 38px;
+        font-weight: 900;
+        margin-bottom: 6px;
+        color: #17212b;
+    }
 
-    <div class="col-md-4">
-        <a href="/confirmations/" class="text-decoration-none text-dark">
-            <div class="module-card">
-                <div class="module-icon">📄</div>
-                <h5>Confirmations</h5>
-                <p>Create, manage and print confirmations</p>
-                <span class="module-link">Open Confirmations →</span>
-            </div>
-        </a>
-    </div>
+    .dashboard-hero p:last-child {
+        color: #667085;
+        margin-bottom: 0;
+        font-size: 16px;
+    }
 
-    <div class="col-md-4">
-        <a href="/bills/" class="text-decoration-none text-dark">
-            <div class="module-card">
-                <div class="module-icon">🧾</div>
-                <h5>Bills</h5>
-                <p>Create, manage and print bill entries</p>
-                <span class="module-link">Open Bills →</span>
-            </div>
-        </a>
-    </div>
+    .quick-actions-panel {
+        background: rgba(255,255,255,0.86);
+        border: 1px solid #edf1f4;
+        border-radius: 24px;
+        padding: 24px;
+        box-shadow: 0 10px 30px rgba(15,23,42,0.05);
+    }
 
-    <div class="col-md-4">
-        <a href="/payments/" class="text-decoration-none text-dark">
-            <div class="module-card">
-                <div class="module-icon">💰</div>
-                <h5>Payments</h5>
-                <p>Record and manage payment entries</p>
-                <span class="module-link">Open Payments →</span>
-            </div>
-        </a>
-    </div>
+    .quick-actions-panel h5 {
+        font-weight: 900;
+        color: #1f2933;
+    }
 
-    <div class="col-md-4">
-        <a href="/commission-report/" class="text-decoration-none text-dark">
-            <div class="module-card">
-                <div class="module-icon">📊</div>
-                <h5>Reports</h5>
-                <p>Generate Seller and Buyer Commission reports</p>
-                <span class="module-link">Open Reports →</span>
-            </div>
-        </a>
-    </div>
+    .quick-action-grid {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(120px, 1fr));
+        gap: 14px;
+    }
 
-</div>
+    .quick-action-card {
+        text-decoration: none;
+        color: #1f2933;
+        background: #ffffff;
+        border: 1px solid #e8eef1;
+        border-radius: 18px;
+        padding: 18px 14px;
+        text-align: center;
+        font-weight: 800;
+        box-shadow: 0 6px 18px rgba(15,23,42,0.04);
+        transition: all 0.2s ease;
+    }
+
+    .quick-action-card span {
+        display: block;
+        font-size: 26px;
+        margin-bottom: 8px;
+    }
+
+    .quick-action-card:hover {
+        transform: translateY(-4px);
+        color: #198754;
+        border-color: rgba(25,135,84,0.22);
+        box-shadow: 0 14px 28px rgba(15,23,42,0.08);
+    }
+
+    .quick-action-card.success {
+        background: linear-gradient(180deg, #ffffff, #f5fff8);
+    }
+
+    .module-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+
+    .modern-module-card {
+        position: relative;
+        overflow: hidden;
+        text-decoration: none;
+        color: #1f2933;
+        background:
+            radial-gradient(circle at top right, rgba(25,135,84,0.10), transparent 30%),
+            #ffffff;
+        border: 1px solid #edf1f4;
+        border-radius: 28px;
+        padding: 28px;
+        min-height: 220px;
+        box-shadow: 0 12px 32px rgba(15,23,42,0.055);
+        transition: all 0.22s ease;
+    }
+
+    .modern-module-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 48px rgba(15,23,42,0.11);
+        border-color: rgba(25,135,84,0.25);
+        color: #1f2933;
+    }
+
+    .modern-module-card.highlight {
+        background:
+            radial-gradient(circle at top right, rgba(25,135,84,0.14), transparent 32%),
+            linear-gradient(180deg, #ffffff, #fbfffc);
+    }
+
+    .module-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+    }
+
+    .module-top span {
+        font-size: 12px;
+        font-weight: 900;
+        color: #198754;
+        background: rgba(25,135,84,0.10);
+        padding: 6px 10px;
+        border-radius: 999px;
+    }
+
+    .module-badge {
+        width: 54px;
+        height: 54px;
+        border-radius: 18px;
+        background: linear-gradient(135deg, #eefaf3, #ffffff);
+        border: 1px solid #e2efe8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+    }
+
+    .modern-module-card h4 {
+        font-size: 24px;
+        font-weight: 900;
+        margin-bottom: 10px;
+    }
+
+    .modern-module-card p {
+        color: #667085;
+        line-height: 1.5;
+        min-height: 48px;
+        margin-bottom: 18px;
+    }
+
+    .module-footer {
+        color: #198754;
+        font-weight: 900;
+        font-size: 14px;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(4px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 1200px) {
+        .quick-action-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .module-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .dashboard-hero {
+            padding: 24px;
+        }
+
+        .dashboard-hero h1 {
+            font-size: 30px;
+        }
+
+        .quick-action-grid,
+        .module-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
 
 {% endblock %}
