@@ -4,128 +4,67 @@
 
 {% block content %}
 
-<div class="premium-dashboard">
+<div class="clean-dashboard">
 
-    <div class="hero-panel">
+    <div class="dash-header">
         <div>
-            <div class="eyebrow">VEDA AGENCY</div>
-            <h1>Business Dashboard</h1>
-            <p>Groundnut & Maize canvassing operations in one workspace</p>
-        </div>
-
-        <div class="hero-chip">
-            <span>🌿</span>
-            <div>
-                <strong>Agency Console</strong>
-                <small>Live Operations</small>
-            </div>
+            <div class="dash-label">VEDA AGENCY</div>
+            <h1>Dashboard</h1>
+            <p>Groundnut & Maize canvassing operations</p>
         </div>
     </div>
 
-    <div class="action-row">
-        <a href="/add-supplier/" class="action-tile">
-            <span>🌾</span>
-            <strong>Supplier</strong>
-            <small>Add new</small>
-        </a>
-
-        <a href="/add-buyer/" class="action-tile">
-            <span>🏢</span>
-            <strong>Buyer</strong>
-            <small>Add new</small>
-        </a>
-
-        <a href="/add-broker/" class="action-tile">
-            <span>🤝</span>
-            <strong>Broker</strong>
-            <small>Add new</small>
-        </a>
-
-        <a href="/add-confirmation/" class="action-tile green">
-            <span>📄</span>
-            <strong>Confirmation</strong>
-            <small>Create deal</small>
-        </a>
-
-        <a href="/add-bill/" class="action-tile green">
-            <span>🧾</span>
-            <strong>Bill</strong>
-            <small>Create bill</small>
-        </a>
-
-        <a href="/add-payment/" class="action-tile green">
-            <span>💰</span>
-            <strong>Payment</strong>
-            <small>Record entry</small>
-        </a>
+    <div class="quick-actions">
+        <a href="/add-supplier/">🌾 <span>Add Supplier</span></a>
+        <a href="/add-buyer/">🏢 <span>Add Buyer</span></a>
+        <a href="/add-broker/">🤝 <span>Add Broker</span></a>
+        <a href="/add-confirmation/">📄 <span>Add Confirmation</span></a>
+        <a href="/add-bill/">🧾 <span>Add Bill</span></a>
+        <a href="/add-payment/">💰 <span>Add Payment</span></a>
     </div>
 
-    <div class="premium-grid">
+    <div class="module-grid-clean">
 
-        <a href="/suppliers/" class="premium-card">
-            <div class="card-glow"></div>
-            <div class="card-head">
-                <div class="icon-box">🌾</div>
-                <span>MASTER</span>
-            </div>
+        <a href="/suppliers/" class="module-clean">
+            <div class="module-icon-clean">🌾</div>
             <h3>Suppliers</h3>
-            <p>Manage supplier details, places, contact info and GST records.</p>
-            <div class="open-link">Open Module →</div>
+            <p>Supplier master records</p>
+            <strong>Open →</strong>
         </a>
 
-        <a href="/buyers/" class="premium-card">
-            <div class="card-glow"></div>
-            <div class="card-head">
-                <div class="icon-box">🏢</div>
-                <span>MASTER</span>
-            </div>
+        <a href="/buyers/" class="module-clean">
+            <div class="module-icon-clean">🏢</div>
             <h3>Buyers</h3>
-            <p>Maintain buyer records and business information clearly.</p>
-            <div class="open-link">Open Module →</div>
+            <p>Buyer master records</p>
+            <strong>Open →</strong>
         </a>
 
-        <a href="/brokers/" class="premium-card">
-            <div class="card-glow"></div>
-            <div class="card-head">
-                <div class="icon-box">🤝</div>
-                <span>CONTACTS</span>
-            </div>
+        <a href="/brokers/" class="module-clean">
+            <div class="module-icon-clean">🤝</div>
             <h3>Brokers</h3>
-            <p>Track broker contact details used for daily deal entries.</p>
-            <div class="open-link">Open Module →</div>
+            <p>Broker contact records</p>
+            <strong>Open →</strong>
         </a>
 
-        <a href="/confirmations/" class="premium-card featured">
-            <div class="card-glow"></div>
-            <div class="card-head">
-                <div class="icon-box">📄</div>
-                <span>DEALS</span>
-            </div>
+        <a href="/confirmations/" class="module-clean important">
+            <div class="module-icon-clean">📄</div>
             <h3>Confirmations</h3>
-            <p>Create, manage and print professional deal confirmations.</p>
-            <div class="open-link">Open Module →</div>
+            <p>Deal confirmation records</p>
+            <strong>Open →</strong>
         </a>
 
-        <a href="/bills/" class="premium-card featured">
-            <div class="card-glow"></div>
-            <div class="card-head">
-                <div class="icon-box">🧾</div>
-                <span>BILLING</span>
-            </div>
+        <a href="/bills/" class="module-clean important">
+            <div class="module-icon-clean">🧾</div>
             <h3>Bills</h3>
-            <p>Create bills linked to confirmations and track invoice details.</p>
-            <div class="open-link">Open Module →</div>
+            <p>Billing entries</p>
+            <strong>Open →</strong>
         </a>
 
-        <a href="/payments/" class="premium-card featured">
-            <div class="card-glow"></div>
-            <div class="card-head">
-                <div class="icon-box">💰</div>
-                <span>ACCOUNTS</span>
-            </div>
+        <a href="/payments/" class="module-clean important">
+            <div class="module-icon-clean">💰</div>
             <h3>Payments</h3>
-            <p>Record payments and monitor balances against bill entries.</p>
-            <div class="open-link">Open Module →</div>
+            <p>Payment tracking</p>
+            <strong>Open →</strong>
         </a>
 
     </div>
@@ -133,38 +72,27 @@
 </div>
 
 <style>
-    body {
-        background:
-            radial-gradient(circle at top right, rgba(25,135,84,0.08), transparent 34%),
-            linear-gradient(180deg, #f7faf8 0%, #eef4f1 100%) !important;
-    }
-
-    .premium-dashboard {
-        min-height: calc(100vh - 64px);
+    .clean-dashboard {
+        min-height: calc(100vh - 56px);
         display: flex;
         flex-direction: column;
         gap: 16px;
-        animation: softEnter 0.28s ease;
     }
 
-    .hero-panel {
-        min-height: 128px;
-        border-radius: 30px;
-        padding: 26px 32px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    .dash-header {
+        min-height: 120px;
+        padding: 24px 30px;
+        border-radius: 28px;
         background:
-            radial-gradient(circle at 85% 15%, rgba(25,135,84,0.20), transparent 30%),
-            linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,255,251,0.78));
-        border: 1px solid rgba(25,135,84,0.14);
-        box-shadow:
-            0 18px 45px rgba(15,23,42,0.07),
-            inset 0 1px 0 rgba(255,255,255,0.85);
-        backdrop-filter: blur(14px);
+            radial-gradient(circle at top right, rgba(25,135,84,0.15), transparent 35%),
+            linear-gradient(135deg, #ffffff, #f7fbf8);
+        border: 1px solid rgba(25,135,84,0.12);
+        box-shadow: 0 12px 30px rgba(15,23,42,0.055);
+        display: flex;
+        align-items: center;
     }
 
-    .eyebrow {
+    .dash-label {
         color: #12824d;
         font-size: 12px;
         font-weight: 900;
@@ -172,281 +100,137 @@
         margin-bottom: 6px;
     }
 
-    .hero-panel h1 {
+    .dash-header h1 {
         margin: 0;
         font-size: 40px;
-        line-height: 1.05;
         font-weight: 950;
         color: #111827;
+        line-height: 1.05;
     }
 
-    .hero-panel p {
+    .dash-header p {
         margin: 8px 0 0;
         color: #667085;
-        font-size: 15px;
+        font-size: 16px;
     }
 
-    .hero-chip {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        min-width: 190px;
-        padding: 14px 16px;
-        border-radius: 20px;
-        background: rgba(255,255,255,0.72);
-        border: 1px solid rgba(25,135,84,0.12);
-        box-shadow: 0 10px 30px rgba(15,23,42,0.05);
-    }
-
-    .hero-chip span {
-        width: 42px;
-        height: 42px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 15px;
-        background: linear-gradient(135deg, #eafff0, #ffffff);
-        border: 1px solid #dff1e7;
-        font-size: 24px;
-    }
-
-    .hero-chip strong {
-        display: block;
-        color: #17212b;
-        font-size: 14px;
-        font-weight: 900;
-    }
-
-    .hero-chip small {
-        color: #198754;
-        font-weight: 800;
-        font-size: 12px;
-    }
-
-    .action-row {
+    .quick-actions {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
         gap: 12px;
     }
 
-    .action-tile {
+    .quick-actions a {
+        min-height: 62px;
+        padding: 12px;
+        border-radius: 18px;
         text-decoration: none;
-        min-height: 76px;
-        border-radius: 20px;
-        background: rgba(255,255,255,0.86);
+        background: rgba(255,255,255,0.92);
         border: 1px solid #e8eef1;
+        color: #17212b;
+        font-weight: 850;
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 14px 16px;
-        color: #18212f;
-        box-shadow: 0 8px 24px rgba(15,23,42,0.045);
-        transition: all 0.22s ease;
-        position: relative;
-        overflow: hidden;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 8px 22px rgba(15,23,42,0.045);
+        transition: all 0.2s ease;
+        text-align: center;
     }
 
-    .action-tile::after {
-        content: "";
-        position: absolute;
-        inset: auto 0 0 0;
-        height: 3px;
-        background: linear-gradient(90deg, transparent, #198754, transparent);
-        opacity: 0;
-        transition: opacity 0.22s ease;
-    }
-
-    .action-tile:hover {
-        transform: translateY(-4px);
+    .quick-actions a:hover {
+        transform: translateY(-3px);
         color: #198754;
-        border-color: rgba(25,135,84,0.26);
-        box-shadow: 0 16px 32px rgba(15,23,42,0.09);
+        border-color: rgba(25,135,84,0.25);
+        box-shadow: 0 14px 32px rgba(15,23,42,0.08);
     }
 
-    .action-tile:hover::after {
-        opacity: 1;
-    }
-
-    .action-tile span {
-        font-size: 24px;
-    }
-
-    .action-tile strong {
-        display: block;
-        font-size: 14px;
-        font-weight: 900;
-        line-height: 1.1;
-    }
-
-    .action-tile small {
-        display: block;
-        font-size: 11px;
-        color: #7a8794;
-        margin-top: 3px;
-        font-weight: 700;
-    }
-
-    .action-tile.green {
-        background: linear-gradient(180deg, #ffffff, #f4fff8);
-    }
-
-    .premium-grid {
+    .module-grid-clean {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 18px;
         flex: 1;
     }
 
-    .premium-card {
-        position: relative;
-        overflow: hidden;
-        min-height: 185px;
+    .module-clean {
+        min-height: 175px;
+        padding: 24px;
+        border-radius: 26px;
         text-decoration: none;
         color: #17212b;
-        border-radius: 28px;
-        padding: 24px 26px;
         background:
-            linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.80));
-        border: 1px solid rgba(226,232,240,0.95);
-        box-shadow:
-            0 14px 34px rgba(15,23,42,0.065),
-            inset 0 1px 0 rgba(255,255,255,0.9);
-        backdrop-filter: blur(12px);
-        transition: all 0.24s ease;
-    }
-
-    .premium-card:hover {
-        transform: translateY(-6px);
-        color: #17212b;
-        border-color: rgba(25,135,84,0.30);
-        box-shadow:
-            0 22px 54px rgba(15,23,42,0.11),
-            0 0 0 1px rgba(25,135,84,0.06);
-    }
-
-    .premium-card.featured {
-        background:
-            radial-gradient(circle at top right, rgba(25,135,84,0.13), transparent 34%),
-            linear-gradient(180deg, rgba(255,255,255,0.96), rgba(250,255,252,0.82));
-    }
-
-    .card-glow {
-        position: absolute;
-        top: -50px;
-        right: -50px;
-        width: 130px;
-        height: 130px;
-        background: rgba(25,135,84,0.13);
-        filter: blur(26px);
-        opacity: 0;
-        transition: opacity 0.25s ease;
-    }
-
-    .premium-card:hover .card-glow {
-        opacity: 1;
-    }
-
-    .card-head {
+            radial-gradient(circle at top right, rgba(25,135,84,0.08), transparent 35%),
+            rgba(255,255,255,0.92);
+        border: 1px solid #edf1f4;
+        box-shadow: 0 12px 30px rgba(15,23,42,0.055);
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
-        align-items: center;
-        margin-bottom: 18px;
-        position: relative;
-        z-index: 1;
+        transition: all 0.22s ease;
     }
 
-    .icon-box {
-        width: 48px;
-        height: 48px;
-        border-radius: 17px;
-        background: linear-gradient(135deg, #f1fff6, #ffffff);
+    .module-clean:hover {
+        transform: translateY(-5px);
+        color: #17212b;
+        border-color: rgba(25,135,84,0.26);
+        box-shadow: 0 20px 44px rgba(15,23,42,0.105);
+    }
+
+    .module-clean.important {
+        background:
+            radial-gradient(circle at top right, rgba(25,135,84,0.12), transparent 38%),
+            linear-gradient(180deg, #ffffff, #fbfffc);
+    }
+
+    .module-icon-clean {
+        width: 46px;
+        height: 46px;
+        border-radius: 16px;
+        background: #f2fbf5;
         border: 1px solid #dcefe4;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 25px;
-        box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+        font-size: 24px;
     }
 
-    .card-head span {
-        font-size: 10px;
-        letter-spacing: 1.2px;
-        color: #198754;
-        font-weight: 950;
-        background: rgba(25,135,84,0.09);
-        padding: 6px 10px;
-        border-radius: 999px;
-    }
-
-    .premium-card h3 {
-        position: relative;
-        z-index: 1;
-        margin: 0 0 8px;
+    .module-clean h3 {
+        margin: 10px 0 4px;
         font-size: 23px;
         font-weight: 950;
-        color: #17212b;
     }
 
-    .premium-card p {
-        position: relative;
-        z-index: 1;
+    .module-clean p {
         margin: 0;
         color: #667085;
         font-size: 14px;
-        line-height: 1.42;
-        min-height: 40px;
-        max-width: 92%;
     }
 
-    .open-link {
-        position: relative;
-        z-index: 1;
-        margin-top: 14px;
+    .module-clean strong {
+        margin-top: 12px;
         color: #12824d;
-        font-weight: 950;
-        font-size: 13px;
+        font-size: 14px;
+        font-weight: 900;
     }
 
-    @keyframes softEnter {
-        from {
-            opacity: 0;
-            transform: translateY(6px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @media (max-width: 1250px) {
-        .action-row {
+    @media (max-width: 1200px) {
+        .quick-actions {
             grid-template-columns: repeat(3, 1fr);
         }
 
-        .premium-grid {
+        .module-grid-clean {
             grid-template-columns: repeat(2, 1fr);
         }
     }
 
     @media (max-width: 768px) {
-        .hero-panel {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 18px;
-        }
-
-        .hero-panel h1 {
-            font-size: 32px;
-        }
-
-        .hero-chip {
-            width: 100%;
-        }
-
-        .action-row,
-        .premium-grid {
+        .quick-actions,
+        .module-grid-clean {
             grid-template-columns: 1fr;
+        }
+
+        .dash-header h1 {
+            font-size: 32px;
         }
     }
 </style>

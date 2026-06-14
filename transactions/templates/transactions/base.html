@@ -13,20 +13,21 @@
 
         :root {
             --sidebar-open: 250px;
-            --sidebar-closed: 78px;
+            --sidebar-closed: 76px;
             --green: #198754;
-            --dark-1: #08141c;
-            --dark-2: #0f1f2b;
+            --dark-1: #071519;
+            --dark-2: #10242b;
         }
 
         body {
             margin: 0;
-            background: #f5f7fb;
+            background:
+                radial-gradient(circle at top right, rgba(25,135,84,0.08), transparent 34%),
+                linear-gradient(180deg, #f7faf8 0%, #eef4f1 100%);
             font-family: Arial, sans-serif;
         }
 
         .app-layout {
-            display: block;
             min-height: 100vh;
         }
 
@@ -36,92 +37,88 @@
             left: 0;
             width: var(--sidebar-open);
             height: 100vh;
-            padding: 26px 16px;
-            background:
-                radial-gradient(circle at top left, rgba(25,135,84,0.22), transparent 34%),
-                linear-gradient(180deg, var(--dark-1), var(--dark-2));
+            padding: 22px 14px;
             color: white;
-            box-shadow: 8px 0 26px rgba(0,0,0,0.20);
-            transition: width 0.28s ease, padding 0.28s ease;
-            overflow: visible;
+            background:
+                radial-gradient(circle at top left, rgba(34,197,94,0.18), transparent 34%),
+                linear-gradient(180deg, var(--dark-1), var(--dark-2));
+            box-shadow: 10px 0 30px rgba(15,23,42,0.22);
+            border-right: 1px solid rgba(255,255,255,0.06);
+            transition: width 0.25s ease, padding 0.25s ease;
             z-index: 1000;
-            border-right: 1px solid rgba(255,255,255,0.05);
+            overflow: visible;
         }
 
         body.sidebar-collapsed .sidebar {
             width: var(--sidebar-closed);
-            padding: 26px 10px;
+            padding: 22px 10px;
         }
 
         .sidebar-toggle {
             position: absolute;
             top: 96px;
-            right: -16px;
-            width: 40px;
-            height: 40px;
-            border: none;
-            border-radius: 13px;
-            background: linear-gradient(145deg, #132631, #1c3440);
+            right: -17px;
+            width: 38px;
+            height: 38px;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            background: linear-gradient(145deg, #10252d, #1e3842);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer;
-            box-shadow: 0 8px 22px rgba(0,0,0,0.28);
-            transition: all 0.25s ease;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.28);
+            transition: all 0.22s ease;
             z-index: 5000;
         }
 
         .sidebar-toggle:hover {
             transform: scale(1.05);
-            background: linear-gradient(145deg, #1b313b, #264552);
+            background: linear-gradient(145deg, #19343d, #28505d);
         }
 
         .brand-box {
             display: flex;
             align-items: center;
-            gap: 14px;
-            padding: 4px 44px 24px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.12);
-            margin-bottom: 28px;
-            min-height: 82px;
+            gap: 13px;
+            padding: 4px 38px 22px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.10);
+            margin-bottom: 22px;
+            min-height: 78px;
         }
 
         .brand-logo {
-            width: 50px;
-            height: 50px;
-            min-width: 50px;
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
             border-radius: 16px;
+            background: linear-gradient(135deg, #0f8f55, #c9b437);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 23px;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.28);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.28);
         }
 
         .brand-text {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
             white-space: nowrap;
-            opacity: 1;
             transition: opacity 0.16s ease;
         }
 
         .brand-title {
-            font-size: 22px;
+            font-size: 21px;
             font-weight: 900;
             line-height: 1.1;
-            color: #ffffff;
-            margin: 0;
+            color: white;
         }
 
         .brand-subtitle {
             font-size: 12px;
-            color: #b8c5ca;
+            color: #b7c4ca;
             line-height: 1.35;
-            margin-top: 6px;
+            margin-top: 5px;
         }
 
         body.sidebar-collapsed .brand-box {
@@ -143,52 +140,48 @@
         }
 
         .sidebar-link {
-            height: 52px;
+            height: 50px;
             display: flex;
             align-items: center;
             gap: 14px;
-            color: rgba(255,255,255,0.90);
+            color: rgba(255,255,255,0.86);
             text-decoration: none;
-            padding: 0 16px;
+            padding: 0 15px;
             border-radius: 16px;
-            margin-bottom: 10px;
-            font-size: 16px;
-            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 15.5px;
+            font-weight: 750;
             white-space: nowrap;
-            transition: background 0.22s ease, transform 0.22s ease, color 0.22s ease, box-shadow 0.22s ease;
+            transition: all 0.22s ease;
         }
 
         .sidebar-link:hover {
-            background: rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.09);
             color: white;
-            transform: translateX(4px);
+            transform: translateX(3px);
         }
 
         .sidebar-link.active {
-            background: linear-gradient(135deg, #158b53, #25c16f);
+            background: linear-gradient(135deg, #168653, #24c16f);
             color: white;
-            box-shadow: 0 10px 22px rgba(25,135,84,0.30);
+            box-shadow: 0 12px 26px rgba(25,135,84,0.32);
         }
 
         .sidebar-icon {
-            width: 26px;
-            min-width: 26px;
-            text-align: center;
-            font-size: 19px;
+            width: 24px;
+            min-width: 24px;
+            font-size: 18px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
         .sidebar-text {
-            white-space: nowrap;
-            opacity: 1;
             transition: opacity 0.16s ease;
         }
 
         body.sidebar-collapsed .sidebar-link {
             justify-content: center;
-            align-items: center;
             padding: 0;
             gap: 0;
         }
@@ -201,8 +194,8 @@
             margin-left: var(--sidebar-open);
             width: calc(100% - var(--sidebar-open));
             min-height: 100vh;
-            padding: 30px 34px;
-            transition: margin-left 0.28s ease, width 0.28s ease;
+            padding: 26px 34px;
+            transition: margin-left 0.25s ease, width 0.25s ease;
         }
 
         body.sidebar-collapsed .content-area {
@@ -228,25 +221,10 @@
             margin-bottom: 0;
         }
 
-        .dashboard-header {
-            margin-bottom: 24px;
-        }
-
         .card {
             border: 0;
             border-radius: 18px;
             box-shadow: 0 6px 22px rgba(0,0,0,0.06);
-        }
-
-        .quick-card {
-            border-left: 6px solid var(--green);
-            background: linear-gradient(180deg, #ffffff, #fbfcfd);
-            margin-bottom: 28px;
-            min-height: auto;
-        }
-
-        .quick-card .card-body {
-            padding: 18px 22px;
         }
 
         .section-title {
@@ -300,67 +278,10 @@
             font-weight: 700;
         }
 
-        .row.g-4 {
-            --bs-gutter-x: 1.6rem;
-            --bs-gutter-y: 1.8rem;
-        }
-
-        .module-card {
-            height: 100%;
-            min-height: 210px;
-            background: #ffffff;
-            border-radius: 24px;
-            padding: 34px;
-            border: 1px solid rgba(0,0,0,0.03);
-            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
-            transition: all 0.25s ease;
-        }
-
-        .module-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 18px 40px rgba(0,0,0,0.08);
-            border-color: #d7e9de;
-        }
-
-        .module-card-wide {
-            min-height: 210px;
-        }
-
-        .module-icon {
-            font-size: 32px;
-            margin-bottom: 18px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-        }
-
-        .module-card h5 {
-            font-weight: 850;
-            font-size: 23px;
-            margin-bottom: 8px;
-            color: #1f2933;
-        }
-
-        .module-card p {
-            min-height: 24px;
-            color: #6c757d;
-            margin-bottom: 18px;
-        }
-
-        .module-link {
-            color: var(--green);
-            font-weight: 750;
-            font-size: 14px;
-        }
-
-        .dashboard-grid {
-            align-items: stretch;
-        }
-
         @media (max-width: 900px) {
             .sidebar {
                 width: var(--sidebar-closed);
-                padding: 26px 10px;
+                padding: 22px 10px;
             }
 
             .brand-text,
@@ -385,7 +306,7 @@
             .content-area {
                 margin-left: var(--sidebar-closed);
                 width: calc(100% - var(--sidebar-closed));
-                padding: 24px;
+                padding: 22px;
             }
         }
     </style>
@@ -395,15 +316,12 @@
 
 <div class="app-layout">
 
-    <aside class="sidebar" id="sidebar">
+    <aside class="sidebar">
 
-        <button id="sidebarToggle" class="sidebar-toggle" type="button">
-            ☰
-        </button>
+        <button id="sidebarToggle" class="sidebar-toggle" type="button">☰</button>
 
         <div class="brand-box">
             <div class="brand-logo">🌿</div>
-
             <div class="brand-text">
                 <div class="brand-title">Veda Agency</div>
                 <div class="brand-subtitle">
@@ -448,6 +366,7 @@
                 <span class="sidebar-icon">💰</span>
                 <span class="sidebar-text">Payments</span>
             </a>
+
             <a class="sidebar-link {% if '/commission-report/' in request.path %}active{% endif %}" href="/commission-report/">
                 <span class="sidebar-icon">📊</span>
                 <span class="sidebar-text">Reports</span>
@@ -461,17 +380,10 @@
 
             {% if messages %}
                 {% for message in messages %}
-                    {% if message.tags == "error" %}
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    {% else %}
-                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                            {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    {% endif %}
+                    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
                 {% endfor %}
             {% endif %}
 
@@ -486,9 +398,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    const sidebarToggle = document.getElementById("sidebarToggle");
-
-    sidebarToggle.addEventListener("click", function () {
+    document.getElementById("sidebarToggle").addEventListener("click", function () {
         document.body.classList.toggle("sidebar-collapsed");
     });
 </script>
